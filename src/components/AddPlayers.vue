@@ -10,8 +10,8 @@
         </button>
         <span class="focus-border"></span>
       </div>
-      <button class="btn add-player-btn" type="button" v-if="players.length < 10" @click="addPlayer">Add Player</button>
-      <button class="btn add-player-btn" type="submit">Finish</button>
+      <button class="btn submit-btn" type="button" v-if="players.length < 10" @click="addPlayer">Add Player</button>
+      <button class="btn submit-btn" type="submit">Finish</button>
     </form>
   </div>
 </template>
@@ -20,7 +20,6 @@
 export default {
   name: 'AddPlayers',
   props: {
-    msg: String
   },
   data() {
     return {
@@ -33,8 +32,8 @@ export default {
   },
   methods: {
     addPlayer() {
-      const newPlayerId = this.players.length + 1
-      this.players.push({ id: newPlayerId, name: '' })
+      const newPlayerId = this.players[this.players.length-1].id + 1
+      this.players.push({ id: newPlayerId, name: '', points: 0 })
     },
     addPlayers() {
       this.$emit('add-players', this.players)
@@ -124,21 +123,7 @@ export default {
   transform: scaleX(1);
 }
 
-.add-player-btn {
-  margin-top: 20px;
-  background-color: #2196f3;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
 
-.add-player-btn:hover {
-  background-color: #1976d2;
-}
 
 @media (max-width: 600px) {
   .add-players {
@@ -167,12 +152,6 @@ export default {
 
   .focus-border {
     height: 1px;
-  }
-
-  .add-player-btn {
-    margin-top: 10px;
-    font-size: 14px;
-    padding: 8px 16px;
   }
 }
 </style>
